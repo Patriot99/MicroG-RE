@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Using the RECEIVE_SMS permission can cause Play Protect to prevent installation. -->
     <!-- <uses-permission android:name="android.permission.RECEIVE_SMS" /> -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application>
         <service android:name="org.microg.gms.firebase.auth.FirebaseAuthService"
@@ -22,9 +21,5 @@
             android:exported="false"
             android:process=":ui"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert.NoActionBar" />
-        <service
-            android:name="org.microg.gms.firebase.auth.ReCaptchaOverlayService"
-            android:exported="false"
-            android:process=":ui" />
     </application>
 </manifest>

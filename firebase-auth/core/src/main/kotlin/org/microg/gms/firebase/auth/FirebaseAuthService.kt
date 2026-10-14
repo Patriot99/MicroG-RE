@@ -371,7 +371,6 @@ class FirebaseAuthServiceImpl(private val context: Context, override val lifecyc
                 Log.d(TAG, "sendVerificationCode")
                 val reCaptchaToken = when {
                     request.request.recaptchaToken != null -> request.request.recaptchaToken
-                    ReCaptchaOverlayService.isSupported(context) -> ReCaptchaOverlayService.awaitToken(context, apiKey, getAuthorizedDomain())
                     ReCaptchaActivity.isSupported(context) -> ReCaptchaActivity.awaitToken(context, apiKey, getAuthorizedDomain())
                     else -> throw RuntimeException("No recaptcha token available")
                 }
