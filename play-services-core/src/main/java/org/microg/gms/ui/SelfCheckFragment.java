@@ -115,6 +115,27 @@ public class SelfCheckFragment extends AbstractSelfCheckFragment {
                                 }
                         );
                     }
+
+                    // RE changes start
+                    // Add SYSTEM_ALERT_WINDOW appops permission. Advisory: the targeted apps work
+                    // without it, so the row is listed but cannot fail the check.
+                    if (false) try {
+                        PermissionInfo info = pm.getPermissionInfo("android.permission.SYSTEM_ALERT_WINDOW", 0);
+                        CharSequence permLabel = info.loadLabel(pm);
+                        collector.addResult(
+                                context.getString(org.microg.tools.ui.R.string.self_check_name_permission, permLabel),
+                                Settings.canDrawOverlays(context) ? Result.Positive : Result.Advisory,
+                                context.getString(org.microg.tools.ui.R.string.self_check_resolution_permission),
+                                fragment -> {
+                                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + context.getPackageName()));
+                                    startActivityForResult(intent, 42);
+                                }
+                        );
+                    } catch (Exception e) {
+                        Log.w("SelfCheckPerms", e);
+                    }
+                    // RE changes end
+
                     // Add INTERACT_ACROSS_PROFILES appop permission (INTERACT_ACROSS_USERS is superior),
                     // advisory for the same reason as the permission above.
                     // Only show Negative when a request is actually possible (work profile exists);
